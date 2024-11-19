@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play Game - Karis' Kool Dice Game</title>
+    <style>
+        body {
+            font-family: Georgia, 'Times New Roman', Times, serif, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        nav {
+            background-color: #333;
+            padding: 10px;
+        }
+        nav a {
+            color: powderblue;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .content {
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="game.html">Play Game</a>
+        <a href="instructions.html">Instructions</a>
+        <a href="leaderboard.html">Leaderboard</a>
+        <a href="profile.html">Player Profile</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="about.html">About Us</a>
+        <a href="faq.html">FAQ</a>
+
+    </nav>
+
+    <!-- Game Content -->
+    <div class="content">
+        <h1>Play the Dice Game</h1>
+        <p>Enter your name and click "Roll Dice" to try your luck!</p>
+        
+        <label for="playerName">Name:</label>
+        <input type="text" id="playerName" placeholder="Your name">
+        <button onclick="startGame()">Start Game</button>
+        
+        <div id="gameArea" style="display: none;">
+            <p id="greeting"></p>
+            <button onclick="rollDice()">Roll Dice</button>
+            <p id="result"></p>
+            <button onclick="playAgain()" style="display: none;">Play Again</button>
+        </div>
+    </div>
+
+    <script>
+        let playerName = "";
+
+        function startGame() {
+            playerName = document.getElementById("playerName").value;
+            if (playerName) {
+                document.getElementById("greeting").innerText = `Hello, ${playerName}! Let's roll the dice.`;
+                document.getElementById("gameArea").style.display = "block";
+            } else {
+                alert("Please enter your name to start.");
+            }
+        }
+
+        function rollDice() {
+            const dice1 = Math.floor(Math.random() * 6) + 1;
+            const dice2 = Math.floor(Math.random() * 6) + 1;
+            const sum = dice1 + dice2;
+            let outcome = "lost";
+
+            if (sum === 7 || sum === 11) {
+                outcome = "won";
+            }
+
+            document.getElementById("result").innerText = `You rolled a ${dice1} and a ${dice2}. Total: ${sum}. You ${outcome}!`;
+            document.querySelector("button[onclick='rollDice()']").style.display = "none";
+            document.querySelector("button[onclick='playAgain()']").style.display = "inline-block";
+        }
+
+        function playAgain() {
+            document.getElementById("result").innerText = "";
+            document.querySelector("button[onclick='rollDice()']").style.display = "inline-block";
+            document.querySelector("button[onclick='playAgain()']").style.display = "none";
+        }
+    </script>
+</body>
+</html>
